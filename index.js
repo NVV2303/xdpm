@@ -17,6 +17,8 @@ const io = initializeSocket(server);
 
 // Middleware truyền io vào request
 app.use((req, res, next) => {
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
+  res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
   req.io = io;
   next();
 });
@@ -28,7 +30,7 @@ const { sequelize } = require('./src/app/models/index');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
-  origin: "http://localhost:3001",
+  origin: "https://coffeeshop-chi-nine.vercel.app",
   credentials: true,
   methods: "GET,POST,PUT,DELETE",
   allowedHeaders: "Content-Type,Authorization"
